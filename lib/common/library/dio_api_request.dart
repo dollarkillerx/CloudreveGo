@@ -4,11 +4,13 @@ import 'package:get/get_core/src/get_main.dart';
 
 import '../routers/app_routes.dart';
 
+var baseUrl = "";
+
 class ApiRequest {
   Dio _dio() {
     Dio dio = Dio(BaseOptions(
       //请求基地址,可以包含子路径
-      baseUrl: "SERVER_API_URL",
+      baseUrl: baseUrl,
       //连接服务器超时时间
       connectTimeout: Duration(seconds: 5),
       //响应流上前后两次接受到数据的间隔
@@ -24,20 +26,7 @@ class ApiRequest {
     return dio;
   }
 
-  Future<Response?> get(
-      {required String url, Map<String, dynamic>? variables}) async {
-    Response resp = await _dio().get(
-      url,
-      queryParameters: variables,
-    );
-    if (resp.statusCode != 200) {
-      throw '${resp.data}';
-    }
-
-    return resp;
-  }
-
-  Future<Response?> post(
+  Future<Response<dynamic>> post(
       {required String url, Map<String, dynamic>? variables}) async {
     Response resp = await _dio().post(
       url,
@@ -52,6 +41,23 @@ class ApiRequest {
 
     return resp;
   }
+
+  Future<Response<dynamic>> get(
+      {required String url, Map<String, dynamic>? variables}) async {
+    Response resp = await _dio().get(
+      url,
+      data: variables,
+      options: Options(
+        contentType: Headers.jsonContentType, // 明确指定为 JSON
+      ),
+    );
+    if (resp.statusCode != 200) {
+      throw '${resp.data}';
+    }
+
+    return resp;
+  }
+
 }
 
 class AuthInterceptor extends Interceptor {

@@ -1,4 +1,7 @@
 import '../../common/library/dio_api_request.dart';
+import 'package:dio/dio.dart';
+
+import '../../models/config.dart';
 
 class LoginProvider extends ApiRequest {
   initConfig(String url) async {
@@ -10,7 +13,9 @@ class LoginProvider extends ApiRequest {
     // 拼接路径
     url = '$url/api/v3/site/config';
 
-    return await get(url: url);
+    Response resp =  await get(url: url);
+    ConfigModel jwt = ConfigModel.fromJson(resp.data);
+    return jwt;
   }
 }
 

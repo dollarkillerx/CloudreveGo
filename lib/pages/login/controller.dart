@@ -1,5 +1,4 @@
 import 'package:cloudrevego/pages/login/provider.dart';
-import 'package:dio/dio.dart' as dio;
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -7,7 +6,7 @@ class LoginController extends GetxController {
    var pageTypeIdx = 0;
    var pageUrlConf = TextEditingController();
 
-   initConfig() {
+   initConfig() async {
       final text = pageUrlConf.text.trim();
 
       // 尝试解析 URL
@@ -23,10 +22,9 @@ class LoginController extends GetxController {
          return;
       }
 
-      dio.Response? resp = LoginProvider().initConfig(uri.toString());
+      var resp =  await LoginProvider().initConfig(uri.toString());
       if (resp != null) {
-         print(resp.statusCode);
-         print(resp.data);
+         print(resp.toString());
       }
 
    }
