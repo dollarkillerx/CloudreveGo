@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../../common/library/dio_api_request.dart';
 import 'package:dio/dio.dart';
 
@@ -14,8 +16,12 @@ class LoginProvider extends ApiRequest {
     url = '$url/api/v3/site/config';
 
     Response resp =  await get(url: url);
-    ConfigModel jwt = ConfigModel.fromJson(resp.data);
+    ConfigModel jwt = ConfigModelMapper.fromJson(jsonEncode(resp.data));
     return jwt;
+  }
+
+  login(String email, String password) async {
+    // var url = '$(LocalStorage.getUrl()!)/api/v3/user/session';
   }
 }
 

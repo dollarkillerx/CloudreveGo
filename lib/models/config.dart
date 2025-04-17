@@ -1,40 +1,49 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'config.freezed.dart';
-part 'config.g.dart';
+part 'config.mapper.dart';
 
-@freezed
-class ConfigModel with _$ConfigModel {
-  const factory ConfigModel({
-    required int code,
-    required ConfigData data,
-    required String msg,
-  }) = _ConfigModel;
+@MappableClass()
+class ConfigModel with ConfigModelMappable {
+  final int code;
+  final ConfigData data;
+  final String msg;
 
-  factory ConfigModel.fromJson(Map<String, dynamic> json) =>
-      _$ConfigModelFromJson(json);
+  const ConfigModel({required this.code, required this.data, required this.msg});
 }
 
-@freezed
-class ConfigData with _$ConfigData {
-  const factory ConfigData({
-    required String title,
-    required bool loginCaptcha,
-    required bool regCaptcha,
-    required bool forgetCaptcha,
-    required bool emailActive,
-    required String themes,
-    required String defaultTheme,
-    required String home_view_method,
-    required String share_view_method,
-    required bool authn,
-    required String captcha_ReCaptchaKey,
-    required String captcha_type,
-    required String tcaptcha_captcha_app_id,
-    required bool registerEnabled,
-    required bool app_promotion,
-  }) = _ConfigData;
+@MappableClass()
+class ConfigData with ConfigDataMappable {
+  final String title;
+  final bool loginCaptcha;
+  final bool regCaptcha;
+  final bool forgetCaptcha;
+  final bool emailActive;
+  final String themes;
+  final String defaultTheme;
+  final String home_view_method;
+  final String share_view_method;
+  final bool authn;
+  final String captcha_ReCaptchaKey;
+  final String captcha_type;
+  final String tcaptcha_captcha_app_id;
+  final bool registerEnabled;
+  final bool app_promotion;
 
-  factory ConfigData.fromJson(Map<String, dynamic> json) =>
-      _$ConfigDataFromJson(json);
+  const ConfigData({
+    required this.title,
+    required this.loginCaptcha,
+    required this.regCaptcha,
+    required this.forgetCaptcha,
+    required this.emailActive,
+    required this.themes,
+    required this.defaultTheme,
+    required this.home_view_method,
+    required this.share_view_method,
+    required this.authn,
+    required this.captcha_ReCaptchaKey,
+    required this.captcha_type,
+    required this.tcaptcha_captcha_app_id,
+    required this.registerEnabled,
+    required this.app_promotion,
+  });
 }
