@@ -82,7 +82,7 @@ class LoginController extends GetxController {
     update();
   }
 
-  void login() {
+  void login() async {
       emailController.text = emailController.text.trim();
       passwordController.text = passwordController.text.trim();
 
@@ -96,6 +96,6 @@ class LoginController extends GetxController {
          return;
       }
 
-
+      await LoginProvider().login(emailController.text, passwordController.text);
   }
 }
