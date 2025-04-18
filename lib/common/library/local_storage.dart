@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cloudrevego/models/config.dart';
 
+import '../../models/user.dart';
 import 'local_storage_service.dart';
 
 class LocalStorage {
@@ -46,5 +47,17 @@ class LocalStorage {
     if (jsonStr == null) return null;
 
     return ConfigDataMapper.fromJson(jsonStr);
+  }
+
+  static setUserInfo(UserData data) async {
+    final jsonStr = jsonEncode(data.toJson());
+    await _storage.setString("user_info", jsonStr);
+  }
+
+  static UserData? getUserInfo() {
+    final jsonStr = _storage.getString("user_info");
+    if (jsonStr == null) return null;
+
+    return UserDataMapper.fromJson(jsonStr);
   }
 }

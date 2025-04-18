@@ -96,6 +96,16 @@ class LoginController extends GetxController {
          return;
       }
 
-      await LoginProvider().login(emailController.text, passwordController.text);
+      try {
+        await LoginProvider().login(emailController.text, passwordController.text);
+      } catch (e) {
+        print(e);
+        Get.snackbar(
+            "错误",        // title
+            "登录失败", // message
+            snackPosition: SnackPosition.TOP, // 可选：弹出位置
+            duration: Duration(seconds: 2),   // 可选：显示时长
+         );
+      }
   }
 }

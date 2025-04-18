@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../routers/app_routes.dart';
+import 'local_storage.dart';
 
 var baseUrl = "";
 
@@ -65,7 +66,7 @@ class AuthInterceptor extends Interceptor {
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     var params = options.queryParameters = Map.from(options.queryParameters);
-    // String? jwt = LocalStorage.getJWT();
+    String? jwt = LocalStorage.getJWT();
     // String skey = "s" + "a" + "l" + "t";
 
     // if (params['Authorization'] == null) {
@@ -76,6 +77,11 @@ class AuthInterceptor extends Interceptor {
     //           '${DateTime.now().millisecondsSinceEpoch ~/ 10000}-9776e538-59ba-473f-8ccf-1d72031e360f1'))
     //       .toString();
     // }
+    if (jwt != null) {
+      options.headers["cookie"] = jwt;
+    }
+
+    options.headers["cookie"] = "cloudreve-session=MTc0NDk1MjA2NnxOd3dBTkVkTVRETkZVazFYTTFJM1NGbGFVRTFHTlZoRFIwRlRVVFJhTnpkRVFrdFFTRU5MV1RkUFNFRkdUbFpXU2xJMlUxSlNWMUU9fLVYG_6s6o_Jv-N3HPyn5h3NWrXwOWTbhJLFvqYH_YQT";
 
     options.queryParameters = params;
 

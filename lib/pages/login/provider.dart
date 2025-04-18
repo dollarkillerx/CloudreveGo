@@ -35,11 +35,15 @@ class LoginProvider extends ApiRequest {
       },
     );
 
-    print(resp.data);
     UserModel user = UserModelMapper.fromJson(jsonEncode(resp.data));
-    print(user.toString());
+    // set user
+    LocalStorage.setUserInfo(user.data);
     var cookie = extractCookieHeader(resp.headers.value("set-cookie")!);
+    // set cookie
+    LocalStorage.setJWT(cookie);
     print(cookie);
+
+    await directory("");
 
     return user.data;
   }
@@ -51,6 +55,14 @@ class LoginProvider extends ApiRequest {
       return rawHeader.substring(0, index);
     }
     return rawHeader;
+  }
+
+  directory(String path) async {
+    var url = '${LocalStorage.getUrl()!}/api/v3/directory$path';
+    Response resp = await get(
+      url: url,
+    );
+    print(resp.data);
   }
 }
 
