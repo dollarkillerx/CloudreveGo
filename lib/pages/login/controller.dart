@@ -71,7 +71,6 @@ class LoginController extends GetxController {
     super.onReady();
 
     try {
-      print("aaaaa");
       var conf = LocalStorage.getConf();
       if (conf != null) {
         pageTypeIdx = 1;
@@ -84,7 +83,6 @@ class LoginController extends GetxController {
       if (token != null) {
         Get.offAllNamed(AppRoutes.Home);
       }
-      print(token);
     } catch (e) {
 
     }
