@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'common/routers/app_pages.dart';
 
@@ -17,7 +18,8 @@ class MyHttpOverrides extends HttpOverrides{
 void main() async {
   HttpOverrides.global = MyHttpOverrides();
 
-  // await GetStorage.init();
+  // WidgetsFlutterBinding.ensureInitialized(); // 保险一点
+  await GetStorage.init(); // 必须要初始化
 
   runApp(const MyApp());
 }

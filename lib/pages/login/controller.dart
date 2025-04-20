@@ -70,12 +70,25 @@ class LoginController extends GetxController {
   void onReady() {
     super.onReady();
 
-    final conf = LocalStorage.getConf();
-    if (conf != null) {
-       pageTypeIdx = 1;
-       configData = conf;
-       update();
+    try {
+      print("aaaaa");
+      var conf = LocalStorage.getConf();
+      if (conf != null) {
+        pageTypeIdx = 1;
+        configData = conf;
+        update();
+      }
+
+      print(conf);
+      var token = LocalStorage.getJWT();
+      if (token != null) {
+        Get.offAllNamed(AppRoutes.Home);
+      }
+      print(token);
+    } catch (e) {
+
     }
+
   }
 
   void leftAP() {
