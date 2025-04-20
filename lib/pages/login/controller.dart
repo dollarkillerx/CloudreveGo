@@ -1,4 +1,5 @@
 import 'package:cloudrevego/common/library/local_storage.dart';
+import 'package:cloudrevego/common/routers/app_routes.dart';
 import 'package:cloudrevego/pages/login/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -98,6 +99,7 @@ class LoginController extends GetxController {
 
       try {
         await LoginProvider().login(emailController.text, passwordController.text);
+        Get.offAllNamed(AppRoutes.Home);
       } catch (e) {
         print(e);
         Get.snackbar(

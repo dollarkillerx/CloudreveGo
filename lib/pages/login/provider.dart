@@ -41,9 +41,7 @@ class LoginProvider extends ApiRequest {
     var cookie = extractCookieHeader(resp.headers.value("set-cookie")!);
     // set cookie
     LocalStorage.setJWT(cookie);
-    print(cookie);
 
-    await directory("");
 
     return user.data;
   }
@@ -57,13 +55,7 @@ class LoginProvider extends ApiRequest {
     return rawHeader;
   }
 
-  directory(String path) async {
-    var url = '${LocalStorage.getUrl()!}/api/v3/directory$path';
-    Response resp = await get(
-      url: url,
-    );
-    print(resp.data);
-  }
+
 }
 
 
